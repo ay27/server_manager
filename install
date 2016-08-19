@@ -1,0 +1,6 @@
+#!/bin/bash
+
+apt-get install -y screen
+cp manager.py /usr/bin/manager
+chmod 755 /usr/bin/manager
+rm /root/remote_desktop.sh
