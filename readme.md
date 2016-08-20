@@ -19,7 +19,6 @@ manager {desktop, jupyter} {start, stop, restart, del}
 manager desktop start   # 启动远程桌面服务
 manager desktop stop    # 停止服务
 manager desktop restart # 重启服务
-manager desktop del     # 删除当前配置
 ```
 
 另外, 需要修改桌面的分辨率, 可以这样操作:

@@ -26,7 +26,7 @@ def run_cmd(cmd, show_msg=False, waite=True):
 
 
 class DesktopAction:
-    choices = ['start', 'stop', 'restart', 'del']
+    choices = ['start', 'stop', 'restart']
 
     def call(self, values):
         if values == DesktopAction.choices[0]:
@@ -35,8 +35,8 @@ class DesktopAction:
             self.stop()
         elif values == DesktopAction.choices[2]:
             self.restart()
-        elif values == DesktopAction.choices[3]:
-            self.delete()
+        # elif values == DesktopAction.choices[3]:
+        #     self.delete()
 
     def start(self):
         self.stop()
@@ -75,15 +75,15 @@ class DesktopAction:
     def restart(self):
         self.start()
 
-    def delete(self):
-        self.stop()
-        run_cmd('rm -rf /root/.Xauthority /root/.vnc')
-        out1, err1, rc1 = run_cmd('ls -al /root/| grep .vnc| grep -v grep')
-        out2, err2, rc2 = run_cmd('ls -al /root/| grep .Xauthority| grep -v grep')
-        if rc1 == rc2 == 1:
-            print('all configuration has been deleted')
-        else:
-            print('delete configuration failed')
+    # def delete(self):
+    #     self.stop()
+    #     run_cmd('rm -rf /root/.Xauthority /root/.vnc/*')
+    #     out1, err1, rc1 = run_cmd('ls -al /root/| grep .vnc| grep -v grep')
+    #     out2, err2, rc2 = run_cmd('ls -al /root/| grep .Xauthority| grep -v grep')
+    #     if rc1 == rc2 == 1:
+    #         print('all configuration has been deleted')
+    #     else:
+    #         print('delete configuration failed')
 
 
 class JupyterAction:

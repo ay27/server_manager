@@ -18,3 +18,5 @@ ln -s /usr/anaconda3/bin/python /usr/bin/python3
 # 为了更好的管理平台,将端口从22改为10000, 3389改为10001
 sed -i 's/^Port 22$/Port 10000/g' /etc/ssh/sshd_config
 sed -i 's/^port=3389$/port=10001/g' /etc/xrdp/xrdp.ini
+sed -i '/xrdp/d' /etc/supervisor/supervisord.conf
+sed -i '/remote_desktop.sh/d' /etc/supervisor/supervisord.conf
