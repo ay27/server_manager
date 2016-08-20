@@ -65,8 +65,8 @@ class DesktopAction:
         run_cmd('ps -ef|grep xrdp|grep -v grep|cut -c 9-15|xargs kill -9')
         run_cmd('rm -rf /var/run/xrdp* /tmp.X1-lock /tmp/.X11-unix/X1')
 
-        out1, err1, rc1 = run_cmd('netstat -nlatp | grep 10001 | grep -v grep')
-        out2, err2, rc2 = run_cmd('netstat -nlatp | grep 5900| grep -v grep')
+        out1, err1, rc1 = run_cmd('netstat -nlatp | grep 0.0.0.0:10001')
+        out2, err2, rc2 = run_cmd('netstat -nlatp | grep 0.0.0.0:5900')
         if rc1 == rc2 == 1:
             print('stop service success')
         else:
@@ -107,7 +107,7 @@ class JupyterAction:
             f.write(config % sha1)
         run_cmd('screen -dmS jupyter -s jupyter-notebook', waite=False)
 
-        out1, err1, rc1 = run_cmd('netstat -nlatp | grep 10002 | grep -v grep')
+        out1, err1, rc1 = run_cmd('netstat -nlatp | grep 0.0.0.0:10002')
         if rc1 == 0 and len(out1) > 0:
             print('start jupyter server success')
         else:
@@ -117,7 +117,7 @@ class JupyterAction:
         run_cmd('ps -ef|grep jupyter-notebook|grep -v grep|cut -c 9-15|xargs kill -9')
         run_cmd('screen -wipe')
 
-        out1, err1, rc1 = run_cmd('netstat -nlatp | grep 10002 | grep -v grep')
+        out1, err1, rc1 = run_cmd('netstat -nlatp | grep 0.0.0.0:10002')
         if rc1 == 1:
             print('stop jupyter server success')
         else:
