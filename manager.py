@@ -10,7 +10,7 @@ config = """
 c.NotebookApp.ip='*'
 c.NotebookApp.password = u'%s'
 c.NotebookApp.open_browser = False
-c.NotebookApp.port = 10000 """
+c.NotebookApp.port = 10002 """
 
 
 def run_cmd(cmd, show_msg=False, waite=True):
@@ -47,7 +47,7 @@ class DesktopAction:
         run_cmd("sed -i 's/-solid grey$/-solid grey -cursor_name left_ptr/g' /root/.vnc/xstartup")
         run_cmd('/etc/init.d/xrdp start')
 
-        out1, err1, rc1 = run_cmd('netstat -nlatp | grep 3389| grep -v grep')
+        out1, err1, rc1 = run_cmd('netstat -nlatp | grep 10001| grep -v grep')
         out2, err2, rc2 = run_cmd('netstat -nlatp | grep 5900| grep -v grep')
         if out1 is not None and out2 is not None and rc1 == rc2 == 0:
             print('start service success')
@@ -65,7 +65,7 @@ class DesktopAction:
         run_cmd('ps -ef|grep xrdp|grep -v grep|cut -c 9-15|xargs kill -9')
         run_cmd('rm -rf /var/run/xrdp* /tmp.X1-lock /tmp/.X11-unix/X1')
 
-        out1, err1, rc1 = run_cmd('netstat -nlatp | grep 3389 | grep -v grep')
+        out1, err1, rc1 = run_cmd('netstat -nlatp | grep 10001 | grep -v grep')
         out2, err2, rc2 = run_cmd('netstat -nlatp | grep 5900| grep -v grep')
         if rc1 == rc2 == 1:
             print('stop service success')
@@ -106,12 +106,22 @@ class JupyterAction:
         with open('/root/.jupyter/jupyter_notebook_config.py', 'w') as f:
             f.write(config % sha1)
         run_cmd('screen -dmS jupyter -s jupyter-notebook', waite=False)
-        print('start jupyter server success')
+
+        out1, err1, rc1 = run_cmd('netstat -nlatp | grep 10002 | grep -v grep')
+        if rc1 == 0 and len(out1) > 0:
+            print('start jupyter server success')
+        else:
+            print('start jupyter error')
 
     def stop(self):
         run_cmd('ps -ef|grep jupyter-notebook|grep -v grep|cut -c 9-15|xargs kill -9')
         run_cmd('screen -wipe')
-        print('stop jupyter server success')
+
+        out1, err1, rc1 = run_cmd('netstat -nlatp | grep 10002 | grep -v grep')
+        if rc1 == 1:
+            print('stop jupyter server success')
+        else:
+            print('stop jupyter error')
 
     def delete(self):
         self.stop()
@@ -126,9 +136,6 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(prog='platform manager')
     sub_parser = parser.add_subparsers(help='optional action')
 
-    desktop_help = """
-    optional action : {start, stop, restart, del}
-                    """
     desktop_parser = sub_parser.add_parser('desktop')
 
     desktop_parser.add_argument('desktop_action', choices=DesktopAction.choices,
