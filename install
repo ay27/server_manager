@@ -1,9 +1,20 @@
 #!/bin/bash
 
+current_version=1
+
+version_file=`ls -al /root/ | grep .manager_version`
+if [ "${version_file}" != "" ]; then
+	old_version=`cat /root/.manager_version`
+	if [ "${old_version}" != "" ] && [ ${old_version} -ge ${current_version} ]; then
+		echo "the exist version of manager is newer than current, will do nothing"
+		exit
+	fi
+fi
+
 # 安装screen,为了支持jupyter的后台执行
 apt-get install -y screen
 
-# 安装脚本
+# 安装新的脚本
 cp manager.py /usr/bin/manager
 chmod 755 /usr/bin/manager
 
@@ -25,3 +36,7 @@ sed -i '/remote_desktop.sh/d' /etc/supervisor/supervisord.conf
 
 # 增加python2 的jupyter kernel
 /usr/anaconda2/bin/ipython kernel install
+
+echo ${current_version} > /root/.manager_version
+
+echo "update finish"
