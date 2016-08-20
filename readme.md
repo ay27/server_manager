@@ -23,7 +23,7 @@ manager desktop del     # 删除当前配置
 ```
 
 另外, 需要修改桌面的分辨率, 可以这样操作:
-```
+```shell
 export GEOMETRY=1366x768    # 设置分辨率, 注意中间是小写x
 manager desktop restart     # 设置完后重启服务
 ```
