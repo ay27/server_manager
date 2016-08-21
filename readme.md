@@ -18,7 +18,7 @@ author: ay27 <me@ay27.com>
 
 ## 使用方法
 ```shell
-manager {desktop, jupyter} {start, stop, restart, del}
+manager {desktop, jupyter, update} {start, stop, restart, del}
 ```
 
 ### 管理远程桌面
@@ -41,12 +41,15 @@ manager desktop stop		# 停止服务
 vncpasswd					# 修改密码(该密码可以与用户密码不同)
 ```
 
-
-
 ### 管理jupyter server
 
 ```shell
 manager jupyter start   # 启动服务, 期间需要设置登陆jupyter 的密码
 manager jupyter stop    # 停止服务
 manager jupyter del     # 删除当前配置
+```
+
+### 更新管理工具
+```shell
+manager update		# 将会自动获取最新的版本号，并更新
 ```
