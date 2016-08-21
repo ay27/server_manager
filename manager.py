@@ -150,10 +150,11 @@ class UpdateAction:
             print('current version is newest, nothing to do')
             sys.exit(0)
         else:
+            print('current version is %d, the newest version is %d' % (old_version, newest_version))
             run_cmd('mkdir /root/.server_manager')
             run_cmd('rm -rf /root/.server_manager/*')
-            run_cmd('git clone https://github.com/ay27/server_manager.git /root/.server_manager')
-            run_cmd('cd /root/.server_manager && ./install')
+            run_cmd('git clone https://github.com/ay27/server_manager.git /root/.server_manager', show_msg=True)
+            run_cmd('cd /root/.server_manager && ./install', show_msg=True)
             print('update finish!')
 
 
