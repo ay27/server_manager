@@ -4,6 +4,11 @@ author: ay27 <me@ay27.com>
 
 版本：1.0
 
+## 版本更新说明
+
+1. 将旧的管理脚本升级为manager 工具
+2. 增加jupyter server的管理
+
 ## 安装
 ```shell
 ./install
@@ -29,7 +34,17 @@ export GEOMETRY=1366x768    # 设置分辨率, 注意中间是小写x
 manager desktop restart     # 设置完后重启服务
 ```
 
+而需要修改远程桌面登陆密码，可以这样操作：
+
+```shell
+manager desktop stop		# 停止服务
+vncpasswd					# 修改密码(该密码可以与用户密码不同)
+```
+
+
+
 ### 管理jupyter server
+
 ```shell
 manager jupyter start   # 启动服务, 期间需要设置登陆jupyter 的密码
 manager jupyter stop    # 停止服务

@@ -5,6 +5,7 @@ import argparse
 import subprocess
 import sys, os
 from notebook.auth import passwd
+import urllib.request
 
 config = """
 c.NotebookApp.ip='*'
@@ -35,8 +36,8 @@ class DesktopAction:
             self.stop()
         elif values == DesktopAction.choices[2]:
             self.restart()
-        # elif values == DesktopAction.choices[3]:
-        #     self.delete()
+            # elif values == DesktopAction.choices[3]:
+            #     self.delete()
 
     def start(self):
         self.stop()
@@ -75,15 +76,15 @@ class DesktopAction:
     def restart(self):
         self.start()
 
-    # def delete(self):
-    #     self.stop()
-    #     run_cmd('rm -rf /root/.Xauthority /root/.vnc/*')
-    #     out1, err1, rc1 = run_cmd('ls -al /root/| grep .vnc| grep -v grep')
-    #     out2, err2, rc2 = run_cmd('ls -al /root/| grep .Xauthority| grep -v grep')
-    #     if rc1 == rc2 == 1:
-    #         print('all configuration has been deleted')
-    #     else:
-    #         print('delete configuration failed')
+        # def delete(self):
+        #     self.stop()
+        #     run_cmd('rm -rf /root/.Xauthority /root/.vnc/*')
+        #     out1, err1, rc1 = run_cmd('ls -al /root/| grep .vnc| grep -v grep')
+        #     out2, err2, rc2 = run_cmd('ls -al /root/| grep .Xauthority| grep -v grep')
+        #     if rc1 == rc2 == 1:
+        #         print('all configuration has been deleted')
+        #     else:
+        #         print('delete configuration failed')
 
 
 class JupyterAction:
@@ -129,6 +130,33 @@ class JupyterAction:
         print('delete configuration success')
 
 
+class UpdateAction:
+    def call(self, values):
+        if values:
+            self.do_update()
+
+    def do_update(self):
+        # check version
+        out, err, rc = run_cmd('cat /root/.manager_version')
+        if rc == 0 and len(out) > 0:
+            old_version = int(out)
+        else:
+            old_version = 0
+
+        # fetch newest version
+        url = urllib.request.urlopen('https://raw.githubusercontent.com/ay27/server_manager/master/version_tag')
+        newest_version = int(url.read().decode('utf-8'))
+        if old_version >= newest_version:
+            print('current version is newest, nothing to do')
+            sys.exit(0)
+        else:
+            run_cmd('mkdir /root/.server_manager')
+            run_cmd('rm -rf /root/.server_manager/*')
+            run_cmd('git clone https://github.com/ay27/server_manager.git /root/.server_manager')
+            run_cmd('cd /root/.server_manager && ./install')
+            print('update finish!')
+
+
 if __name__ == '__main__':
     # out = passwd()
     # print(out)
@@ -136,7 +164,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(prog='platform manager')
     sub_parser = parser.add_subparsers(help='optional action')
 
-    desktop_parser = sub_parser.add_parser('desktop')
+    desktop_parser = sub_parser.add_parser('desktop', help="manage remote desktop service")
 
     desktop_parser.add_argument('desktop_action', choices=DesktopAction.choices,
                                 help='choose one optional action')
@@ -146,12 +174,16 @@ if __name__ == '__main__':
     jupyter_parser.add_argument('jupyter_action', choices=JupyterAction.choices,
                                 help='choose one optional action')
 
+    update_parser = sub_parser.add_parser('update', help="update manager")
+    update_parser.set_defaults(update=True)
+
     if len(sys.argv) == 1:
         parser.print_help()
         sys.exit(-1)
 
     args = parser.parse_args()
     vv = vars(args)
+    # print(vv)
     if 'desktop_action' in vv.keys():
         if len(sys.argv) < 3:
             desktop_parser.print_help()
@@ -162,3 +194,5 @@ if __name__ == '__main__':
             jupyter_parser.print_help()
         else:
             JupyterAction().call(vv['jupyter_action'])
+    elif 'update' in vv.keys():
+        UpdateAction().call(vv['update'])
