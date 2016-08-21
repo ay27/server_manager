@@ -2,6 +2,8 @@
 
 author: ay27 <me@ay27.com>
 
+版本：1.0
+
 ## 安装
 ```shell
 ./install
