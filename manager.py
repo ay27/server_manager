@@ -146,7 +146,6 @@ class UpdateAction:
         # fetch newest version
         url = urllib.request.urlopen('https://raw.githubusercontent.com/ay27/server_manager/master/version_tag')
         newest_version = int(url.read().decode('utf-8'))
-        print('current version is %d, the newest version is %d' % (old_version, newest_version))
         if old_version >= newest_version:
             print('current version is newest, nothing to do')
             sys.exit(0)

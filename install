@@ -38,5 +38,3 @@ sed -i '/remote_desktop.sh/d' /etc/supervisor/supervisord.conf
 /usr/anaconda2/bin/ipython kernel install
 
 echo ${current_version} > /root/.manager_version
-
-echo "update finish"
