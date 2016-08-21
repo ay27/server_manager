@@ -48,9 +48,9 @@ class DesktopAction:
         run_cmd("sed -i 's/-solid grey$/-solid grey -cursor_name left_ptr/g' /root/.vnc/xstartup")
         run_cmd('/etc/init.d/xrdp start')
 
-        out1, err1, rc1 = run_cmd('netstat -nlatp | grep 10001| grep -v grep')
-        out2, err2, rc2 = run_cmd('netstat -nlatp | grep 5900| grep -v grep')
-        if out1 is not None and out2 is not None and rc1 == rc2 == 0:
+        out1, err1, rc1 = run_cmd('netstat -nlatp | grep 10001')
+        out2, err2, rc2 = run_cmd('netstat -nlatp | grep 5900')
+        if len(out1) > 0 and len(out2) > 0 and rc1 == rc2 == 0:
             print('start service success')
         else:
             print('start service error')
