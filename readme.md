@@ -11,7 +11,7 @@ author: ay27 <me@ay27.com>
 
 ## 安装
 ```shell
-./install
+cd server_manager && ./install
 ```
 
 将会安装在`/usr/bin/manager`
