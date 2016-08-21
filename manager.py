@@ -146,13 +146,13 @@ class UpdateAction:
         # fetch newest version
         url = urllib.request.urlopen('https://raw.githubusercontent.com/ay27/server_manager/master/version_tag')
         newest_version = int(url.read().decode('utf-8'))
+        print('current version is %d, the newest version is %d' % (old_version, newest_version))
         if old_version >= newest_version:
             print('current version is newest, nothing to do')
             sys.exit(0)
         else:
             print('current version is %d, the newest version is %d' % (old_version, newest_version))
-            run_cmd('mkdir /root/.server_manager')
-            run_cmd('rm -rf /root/.server_manager/*')
+            run_cmd('rm -rf /root/.server_manager')
             run_cmd('git clone https://github.com/ay27/server_manager.git /root/.server_manager', show_msg=True)
             run_cmd('cd /root/.server_manager && ./install', show_msg=True)
             print('update finish!')
