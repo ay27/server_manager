@@ -102,13 +102,12 @@ class JupyterAction:
             f.write(config % sha1)
         run_cmd('screen -dmS jupyter -s jupyter-notebook', waite=False)
 
-        sleep(1)
+        sleep(2)
         out1, err1, rc1 = run_cmd('netstat -nlatp | grep 0.0.0.0:10002')
         if rc1 == 0 and len(out1) > 0:
             print('start jupyter server success')
         else:
             print('start jupyter error')
-            print('rc1=%d, out1=%s, err1=%s' % (rc1, out1, err1))
 
     def stop(self):
         run_cmd('ps -ef|grep jupyter-notebook|grep -v grep|cut -c 9-15|xargs kill -9')
