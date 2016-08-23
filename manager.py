@@ -108,6 +108,7 @@ class JupyterAction:
             print('start jupyter server success')
         else:
             print('start jupyter error')
+            print('rc1=%d, out1=%s, err1=%s' % (rc1, out1, err1))
 
     def stop(self):
         run_cmd('ps -ef|grep jupyter-notebook|grep -v grep|cut -c 9-15|xargs kill -9')
