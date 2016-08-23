@@ -4,6 +4,8 @@
 import argparse
 import subprocess
 import sys, os
+from time import sleep
+
 from notebook.auth import passwd
 import urllib.request
 
@@ -48,6 +50,7 @@ class DesktopAction:
         run_cmd("sed -i 's/-solid grey$/-solid grey -cursor_name left_ptr/g' /root/.vnc/xstartup")
         run_cmd('/etc/init.d/xrdp start')
 
+        sleep(1)
         out1, err1, rc1 = run_cmd('netstat -nlatp | grep 10001')
         out2, err2, rc2 = run_cmd('netstat -nlatp | grep 5900')
         if len(out1) > 0 and len(out2) > 0 and rc1 == rc2 == 0:
@@ -66,6 +69,7 @@ class DesktopAction:
         run_cmd('ps -ef|grep xrdp|grep -v grep|cut -c 9-15|xargs kill -9')
         run_cmd('rm -rf /var/run/xrdp* /tmp.X1-lock /tmp/.X11-unix/X1')
 
+        sleep(1)
         out1, err1, rc1 = run_cmd('netstat -nlatp | grep 0.0.0.0:10001')
         out2, err2, rc2 = run_cmd('netstat -nlatp | grep 0.0.0.0:5900')
         if rc1 == rc2 == 1:
@@ -75,16 +79,6 @@ class DesktopAction:
 
     def restart(self):
         self.start()
-
-        # def delete(self):
-        #     self.stop()
-        #     run_cmd('rm -rf /root/.Xauthority /root/.vnc/*')
-        #     out1, err1, rc1 = run_cmd('ls -al /root/| grep .vnc| grep -v grep')
-        #     out2, err2, rc2 = run_cmd('ls -al /root/| grep .Xauthority| grep -v grep')
-        #     if rc1 == rc2 == 1:
-        #         print('all configuration has been deleted')
-        #     else:
-        #         print('delete configuration failed')
 
 
 class JupyterAction:
@@ -108,6 +102,7 @@ class JupyterAction:
             f.write(config % sha1)
         run_cmd('screen -dmS jupyter -s jupyter-notebook', waite=False)
 
+        sleep(1)
         out1, err1, rc1 = run_cmd('netstat -nlatp | grep 0.0.0.0:10002')
         if rc1 == 0 and len(out1) > 0:
             print('start jupyter server success')
@@ -118,6 +113,7 @@ class JupyterAction:
         run_cmd('ps -ef|grep jupyter-notebook|grep -v grep|cut -c 9-15|xargs kill -9')
         run_cmd('screen -wipe')
 
+        sleep(1)
         out1, err1, rc1 = run_cmd('netstat -nlatp | grep 0.0.0.0:10002')
         if rc1 == 1:
             print('stop jupyter server success')
