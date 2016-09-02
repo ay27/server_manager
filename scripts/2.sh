@@ -46,4 +46,4 @@ cd .. && rm -rf lrzsz-0.12.20
 ln -s /usr/local/bin/lrz /usr/local/bin/rz
 ln -s /usr/local/bin/lsz /usr/local/bin/sz
 
-echo ${current_version} > /root/.manager_version
+# echo ${current_version} > /root/.manager_version
