@@ -154,7 +154,7 @@ class UpdateAction:
                 read = input(u"update now? [y|n]  ")
                 read = read.strip()
 
-            if input == 'n':
+            if read == 'n':
                 return
 
             run_cmd('rm -rf /root/.server_manager')
