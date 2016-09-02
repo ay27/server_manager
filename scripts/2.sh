@@ -7,7 +7,7 @@ echo "running update version "${current_version}
 # 把阿里云的软件源替换成中科大的软件源
 function backup_sources()
 {
-    echo -e "Backup your sources.list.\n"
+    # echo -e "Backup your sources.list."
     sudo mv /etc/apt/sources.list /etc/apt/sources.list.`date +%F-%R:%S`
 }
 
