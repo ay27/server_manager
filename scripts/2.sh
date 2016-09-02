@@ -16,7 +16,7 @@ function update_sources()
     local COMP="main restricted universe multiverse"
     local mirror="$1"
     local tmp=$(mktemp)
-    local $VERSION="trusty"
+    local VERSION="trusty"
 
 	echo "deb $mirror $VERSION $COMP" >> $tmp
 	echo "deb $mirror $VERSION-updates $COMP" >> $tmp
