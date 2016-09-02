@@ -2,6 +2,7 @@
 
 current_version=2
 
+echo "running in 2"
 
 # 把阿里云的软件源替换成重启大学的软件源
 function backup_sources()

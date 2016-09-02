@@ -14,6 +14,7 @@ fi
 let start=${old_version}+1
 for (( i = ${start}; i <= ${current_version}; i++ )); do
 	echo "running version "${i}
+	cd /root/.server_manager/
 	execfile="./scripts/"${i}".sh"
-	`${execfile}`
+	${execfile}
 done
