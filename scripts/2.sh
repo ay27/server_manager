@@ -2,7 +2,7 @@
 
 current_version=2
 
-echo "running in 2"
+echo "running update version "${current_version}
 
 # 把阿里云的软件源替换成重启大学的软件源
 function backup_sources()
@@ -47,4 +47,8 @@ cd .. && rm -rf lrzsz-0.12.20
 ln -s /usr/local/bin/lrz /usr/local/bin/rz
 ln -s /usr/local/bin/lsz /usr/local/bin/sz
 
-# echo ${current_version} > /root/.manager_version
+# 安装新的脚本
+rm /usr/bin/manager
+cp manager.py /usr/bin/manager
+
+echo ${current_version} > /root/.manager_version

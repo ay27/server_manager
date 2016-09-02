@@ -147,6 +147,16 @@ class UpdateAction:
             sys.exit(0)
         else:
             print('current version is %d, the newest version is %d' % (old_version, newest_version))
+
+            read = input('update now? [y|n]  ')
+            read = read.strip()
+            while (read != 'y') and (read != 'n'):
+                read = input(u"update now? [y|n]  ")
+                read = read.strip()
+
+            if input == 'n':
+                return
+
             run_cmd('rm -rf /root/.server_manager')
             run_cmd('git clone https://github.com/ay27/server_manager.git /root/.server_manager', show_msg=True)
             run_cmd('cd /root/.server_manager && ./install', show_msg=True)
