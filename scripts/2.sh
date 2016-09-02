@@ -50,5 +50,6 @@ ln -s /usr/local/bin/lsz /usr/local/bin/sz
 # 安装新的脚本
 rm /usr/bin/manager
 cp manager.py /usr/bin/manager
+chmod +x /usr/bin/manager
 
 echo ${current_version} > /root/.manager_version
