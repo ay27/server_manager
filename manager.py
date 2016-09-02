@@ -139,6 +139,8 @@ class UpdateAction:
         else:
             old_version = 0
 
+        print('checking if there has new updates')
+
         # fetch newest version
         url = urllib.request.urlopen('https://raw.githubusercontent.com/ay27/server_manager/master/version_tag')
         newest_version = int(url.read().decode('utf-8'))
@@ -151,11 +153,11 @@ class UpdateAction:
             read = input('update now? [y|n]  ')
             read = read.strip()
             while (read != 'y') and (read != 'n'):
-                read = input(u"update now? [y|n]  ")
+                read = input('update now? [y|n]  ')
                 read = read.strip()
 
             if read == 'n':
-                return
+                sys.exit(0)
 
             run_cmd('rm -rf /root/.server_manager')
             run_cmd('git clone https://github.com/ay27/server_manager.git /root/.server_manager', show_msg=True)
