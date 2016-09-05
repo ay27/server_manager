@@ -5,7 +5,6 @@ import argparse
 import subprocess
 import sys, os
 from time import sleep
-
 from notebook.auth import passwd
 import urllib.request
 
@@ -185,13 +184,15 @@ if __name__ == '__main__':
     update_parser = sub_parser.add_parser('update', help="update manager")
     update_parser.set_defaults(update=True)
 
+    parser.add_argument('-v', '--version', action='store_true', help="version")
+
     if len(sys.argv) == 1:
         parser.print_help()
         sys.exit(-1)
 
     args = parser.parse_args()
     vv = vars(args)
-    # print(vv)
+    print(vv)
     if 'desktop_action' in vv.keys():
         if len(sys.argv) < 3:
             desktop_parser.print_help()
@@ -204,3 +205,9 @@ if __name__ == '__main__':
             JupyterAction().call(vv['jupyter_action'])
     elif 'update' in vv.keys():
         UpdateAction().call(vv['update'])
+    elif 'version' in vv.keys():
+        out, err, rc = run_cmd('cat /root/.manager_version')
+        if rc == 0:
+            print('current version is %d' % out.strip())
+        else:
+            print("can not found the version file, please run 'manager update' to catch up the newest version")
