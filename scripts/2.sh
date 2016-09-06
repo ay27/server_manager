@@ -4,7 +4,7 @@ current_version=2
 
 echo "running update version "${current_version}
 
-# 把阿里云的软件源替换成中科大的软件源
+# 把阿里云的软件源替换成ubuntu 中国官方源
 function backup_sources()
 {
     # echo -e "Backup your sources.list."
@@ -34,7 +34,7 @@ function update_sources()
 }
 
 backup_sources
-update_sources http://mirrors.ustc.edu.cn/ubuntu/
+update_sources http://cn.archive.ubuntu.com/ubuntu/
 apt-get update
 
 # 安装build-essential
