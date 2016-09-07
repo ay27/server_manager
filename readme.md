@@ -2,10 +2,15 @@
 
 author: ay27 <me@ay27.com>
 
+## 版本：3
+
+1. 安装了gfortran，解决了matlab中需要编译Fortran依赖包的问题
+2. 修复了一个manager 工具中的bug，该bug可能导致远程桌面服务无法正常关闭
+
 ## 版本：2
 
 ### 更新说明
-1. 因为阿里云的软件源不稳定，因此将软件源改为中科大的源
+1. 因为阿里云的软件源不稳定，因此将软件源改为ubuntu中国官方源
 2. 安装build-essential，包括了gcc，g++，make，automake 等常用编译库
 3. 安装了rz 和sz 命令，让windows 用户可以更方便地上传、下载文件
 4. 完善了manager 工具
