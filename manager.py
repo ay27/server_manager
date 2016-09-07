@@ -208,6 +208,6 @@ if __name__ == '__main__':
     elif 'version' in vv.keys():
         out, err, rc = run_cmd('cat /root/.manager_version')
         if rc == 0:
-            print('current version is %s' % str(out.strip()))
+            print('current version is %s' % out.strip().decode())
         else:
             print("can not found the version file, please run 'manager update' to catch up the newest version")
