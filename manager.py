@@ -192,7 +192,6 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
     vv = vars(args)
-    # print(vv)
     if 'desktop_action' in vv.keys():
         if len(sys.argv) < 3:
             desktop_parser.print_help()
