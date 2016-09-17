@@ -181,7 +181,7 @@ class UpdateAction:
                 sys.exit(0)
 
             run_cmd('rm -rf /root/.server_manager')
-            run_cmd('curl -o manager_latest.tar.gz ' + link, show_msg=True)
+            run_cmd('curl -oL manager_latest.tar.gz ' + link, show_msg=True)
             run_cmd('mkdir -p /root/.server_manager; tar -xzf manager_latest.tar.gz -C /root/.server_manager')
             # run_cmd('git clone https://github.com/ay27/server_manager.git /root/.server_manager', show_msg=True)
             run_cmd('cd /root/.server_manager && ls server_manager* | xargs cd && ./install', show_msg=True)
