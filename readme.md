@@ -2,6 +2,10 @@
 
 author: ay27 <me@ay27.com>
 
+## 版本：4
+
+1. 更新了manager 工具升级策略
+
 ## 版本：3
 
 1. 安装了gfortran，解决了matlab中需要编译Fortran依赖包的问题

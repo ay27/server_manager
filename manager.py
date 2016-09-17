@@ -6,7 +6,8 @@ import subprocess
 import sys, os
 from time import sleep
 from notebook.auth import passwd
-import urllib.request
+import requests
+from bs4 import BeautifulSoup, Tag
 
 config = """
 c.NotebookApp.ip='*'
@@ -140,9 +141,30 @@ class UpdateAction:
 
         print('checking if there has new updates')
 
-        # fetch newest version
-        url = urllib.request.urlopen('https://raw.githubusercontent.com/ay27/server_manager/master/version_tag')
-        newest_version = int(url.read().decode('utf-8'))
+        newest_version = 0
+        link = ''
+        try:
+            release_page = requests.get('https://github.com/ay27/server_manager/releases')
+            soup = BeautifulSoup(release_page.text, "lxml")
+
+            for tag in soup.find_all('div'):
+                if tag.attrs.get('class') == ['release', 'label-latest']:
+                    for child in tag.find_all('span'):
+                        if child.attrs.get('class') == ['css-truncate-target']:
+                            newest_version = child.string
+                            for div in tag.find_all('div'):
+                                if div.attrs.get('class') == ['release-body', 'commit', 'open']:
+                                    rows = div.ul.find_all('li')
+                                    if len(rows) != 2:
+                                        raise Exception('parse download link error')
+                                    link = 'https://github.com' + rows[1].a.attrs.get('href')
+                            # print(newest_version)
+        except Exception as e:
+            print(e)
+        print(newest_version)
+        print(link)
+
+        newest_version = int(newest_version)
         if old_version >= newest_version:
             print('current version is newest, nothing to do')
             sys.exit(0)
@@ -159,8 +181,10 @@ class UpdateAction:
                 sys.exit(0)
 
             run_cmd('rm -rf /root/.server_manager')
-            run_cmd('git clone https://github.com/ay27/server_manager.git /root/.server_manager', show_msg=True)
-            run_cmd('cd /root/.server_manager && ./install', show_msg=True)
+            run_cmd('curl -o manager_latest.tar.gz ' + link, show_msg=True)
+            run_cmd('mkdir -p /root/.server_manager; tar -xzf manager_latest.tar.gz -C /root/.server_manager')
+            # run_cmd('git clone https://github.com/ay27/server_manager.git /root/.server_manager', show_msg=True)
+            run_cmd('cd /root/.server_manager && ls server_manager* | xargs cd && ./install', show_msg=True)
             print('update finish!')
 
 
