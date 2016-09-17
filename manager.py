@@ -186,9 +186,7 @@ class UpdateAction:
             dir_name = str(dir_name.split('\n')[0])
             run_cmd('tar -xzf manager_latest.tar.gz; rm manager_latest.tar.gz')
             run_cmd('cd %s && ./install' % dir_name, show_msg=True)
-            print('t1')
-            run_cmd('pwd && cd .. && rm -rf %s' % dir_name, show_msg=True)
-            print('t2')
+            run_cmd('rm -rf %s' % dir_name, show_msg=True)
             print('update finish!')
 
 
