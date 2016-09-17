@@ -181,9 +181,11 @@ class UpdateAction:
                 sys.exit(0)
 
             run_cmd('wget -O manager_latest.tar.gz ' + link, show_msg=True)
+            dir_name, err, rc = run_cmd('tar -tf manager_latest.tar.gz')
+            dir_name = dir_name.split()[0]
             run_cmd('tar -xzf manager_latest.tar.gz; rm manager_latest.tar.gz')
-            run_cmd('ls server_manager* | xargs cd && ./install', show_msg=True)
-            run_cmd('cd ..; ls server_manager* | xargs rm -rf')
+            run_cmd('cd %s && ./install' % dir_name, show_msg=True)
+            run_cmd('cd ..; rm -rf %s' % dir_name)
             print('update finish!')
 
 
