@@ -182,7 +182,10 @@ class UpdateAction:
 
             run_cmd('wget -O manager_latest.tar.gz ' + link, show_msg=True)
             dir_name, err, rc = run_cmd('tar -tf manager_latest.tar.gz')
-            dir_name = dir_name.split()[0]
+            dir_name = str(dir_name)
+            dir_name = str(dir_name.split('\n')[0])
+            print(dir_name)
+            print(type(dir_name))
             run_cmd('tar -xzf manager_latest.tar.gz; rm manager_latest.tar.gz')
             run_cmd('cd %s && ./install' % dir_name, show_msg=True)
             run_cmd('cd ..; rm -rf %s' % dir_name)
