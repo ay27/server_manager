@@ -13,7 +13,6 @@ fi
 
 let start=${old_version}+1
 for (( i = ${start}; i <= ${current_version}; i++ )); do
-	cd /root/.server_manager/
 	execfile="./scripts/"${i}".sh"
 	${execfile}
 done
