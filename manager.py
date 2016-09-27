@@ -102,7 +102,7 @@ class JupyterAction:
             f.write(config % sha1)
         run_cmd('screen -dmS jupyter -s jupyter-notebook', waite=False)
 
-        sleep(2)
+        sleep(3)
         out1, err1, rc1 = run_cmd('netstat -nlatp | grep 0.0.0.0:10002')
         if rc1 == 0 and len(out1) > 0:
             print('start jupyter server success')
@@ -191,9 +191,6 @@ class UpdateAction:
 
 
 if __name__ == '__main__':
-    # out = passwd()
-    # print(out)
-
     parser = argparse.ArgumentParser(prog='platform manager')
     sub_parser = parser.add_subparsers(help='optional action')
 

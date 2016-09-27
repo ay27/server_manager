@@ -5,6 +5,7 @@ author: ay27 <me@ay27.com>
 ## 版本：4
 
 1. 更新了manager 工具升级策略
+2. 加入了TensorFlow 支持，现在可以在系统中的python2.7 或 python3.5 环境中直接使用了，jupyter 环境同样支持TensorFlow
 
 ## 版本：3
 
