@@ -2,6 +2,11 @@
 
 author: ay27 <me@ay27.com>
 
+## 版本：5
+
+1. 更新了TensorFlow 的版本
+2. 修复一个在关闭远程桌面服务时出现的bug
+
 ## 版本：4
 
 1. 更新了manager 工具升级策略
