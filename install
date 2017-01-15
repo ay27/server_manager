@@ -1,6 +1,6 @@
 #!/bin/bash
 
-current_version=4
+current_version=5
 
 version_file=`ls -al /root/ | grep .manager_version`
 if [ "${version_file}" != "" ]; then

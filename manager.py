@@ -61,7 +61,7 @@ class DesktopAction:
             run_cmd('/etc/init.d/xrdp stop')
             run_cmd('vncserver -kill :1')
             run_cmd('ps -ef|grep xrdp|grep -v grep|cut -c 9-15|xargs kill -9')
-            run_cmd('rm -rf /var/run/xrdp* /tmp.X1-lock /tmp/.X11-unix/X1')
+            run_cmd('rm -rf /var/run/xrdp* /tmp/.X1-lock /tmp/.X11-unix/X1')
 
     def stop(self):
         run_cmd('/etc/init.d/xrdp stop')
