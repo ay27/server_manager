@@ -5,7 +5,9 @@ current_version=6
 echo "running update version "${current_version}
 
 # 更换pip 源,指向阿里的源,速度更快
-mkdir /root/.pip
+if [ ! -d "/root/.pip" ]; then
+  mkdir /root/.pip
+fi
 echo "[global]
 trusted-host=mirrors.aliyun.com
 index-url=http://mirrors.aliyun.com/pypi/simple
