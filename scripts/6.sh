@@ -6,7 +6,10 @@ echo "running update version "${current_version}
 
 # 更换pip 源,指向阿里的源,速度更快
 mkdir /root/.pip
-cp files/pip.conf /root/.pip/
+echo "[global]
+trusted-host=mirrors.aliyun.com
+index-url=http://mirrors.aliyun.com/pypi/simple
+" > /root/.pip/pip.conf
 
 # 安装新的脚本
 rm /usr/bin/manager
