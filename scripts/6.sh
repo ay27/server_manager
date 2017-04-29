@@ -6,7 +6,7 @@ echo "running update version "${current_version}
 
 # 更换pip 源,指向阿里的源,速度更快
 mkdir /root/.pip
-cp ../files/pip.conf /root/.pip/
+cp files/pip.conf /root/.pip/
 
 # 安装新的脚本
 rm /usr/bin/manager
