@@ -220,6 +220,7 @@ if __name__ == '__main__':
     update_parser.set_defaults(update=True)
 
     fix_pip_error_parser = sub_parser.add_parser('fix_pip', help='fix pip error')
+    fix_pip_error_parser.set_defaults(fix_pip=True)
 
     parser.add_argument('-v', '--version', action='store_true', help="version")
 
