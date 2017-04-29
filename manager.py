@@ -15,6 +15,9 @@ c.NotebookApp.password = u'%s'
 c.NotebookApp.open_browser = False
 c.NotebookApp.port = 10002 """
 
+downgrad_pip = 'wget https://pypi.python.org/packages/e7/a8/7556133689add8d1a54c0b14aeff0acb03c64707ce100ecd53934da1aa13/pip-8.1.2.tar.gz --no-check-certificate;\
+ tar -xzvf pip-8.1.2.tar.gz; cd pip-8.1.2;  python setup.py install; cd ..; rm -rf pip-8.1.2 pip-8.1.2.tar.gz'
+
 
 def run_cmd(cmd, show_msg=False, waite=True):
     # print(cmd)
@@ -158,7 +161,7 @@ class UpdateAction:
                                     if len(rows) != 2:
                                         raise Exception('parse download link error')
                                     link = 'https://github.com' + rows[1].a.attrs.get('href')
-                            # print(newest_version)
+                                    # print(newest_version)
         except Exception as e:
             print(e)
         # print(newest_version)
@@ -190,6 +193,15 @@ class UpdateAction:
             print('update finish!')
 
 
+class FixPipAction:
+    def call(self, values):
+        if values:
+            self.do_fix_pip()
+
+    def do_fix_pip(self):
+        run_cmd(downgrad_pip, True)
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(prog='platform manager')
     sub_parser = parser.add_subparsers(help='optional action')
@@ -206,6 +218,9 @@ if __name__ == '__main__':
 
     update_parser = sub_parser.add_parser('update', help="update manager")
     update_parser.set_defaults(update=True)
+
+    fix_pip_error_parser = sub_parser.add_parser('fix_pip', help='fix pip error')
+    fix_pip_error_parser.set_defaults(fix_pip=True)
 
     parser.add_argument('-v', '--version', action='store_true', help="version")
 
@@ -227,6 +242,8 @@ if __name__ == '__main__':
             JupyterAction().call(vv['jupyter_action'])
     elif 'update' in vv.keys():
         UpdateAction().call(vv['update'])
+    elif 'fix_pip' in vv.keys():
+        FixPipAction().call(vv['fix_pip'])
     elif 'version' in vv.keys():
         out, err, rc = run_cmd('cat /root/.manager_version')
         if rc == 0:

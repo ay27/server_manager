@@ -1,6 +1,11 @@
 # Server Manager
 
-author: ay27 <me@ay27.com>
+author: ay27 <jinmian.y@gmail.com>
+
+## 版本：6
+
+1. 更换pip 源,现在使用pip 安装软件速度更快了
+2. 加入了fix_pip 命令,现在可以使用`manager fix_pip` 命令修复pip 错误了
 
 ## 版本：5
 
