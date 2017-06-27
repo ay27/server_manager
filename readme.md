@@ -1,6 +1,9 @@
 # Server Manager
 
-author: ay27 <jinmian.y@gmail.com>
+author:
+
+1. ay27 <jinmian.y@gmail.com>
+2. chendi <chendi1995425@gmail.com>
 
 ## 版本：6
 
