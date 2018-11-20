@@ -13,7 +13,8 @@ config = """
 c.NotebookApp.ip='*'
 c.NotebookApp.password = u'%s'
 c.NotebookApp.open_browser = False
-c.NotebookApp.port = 10002 """
+c.NotebookApp.port = 10002
+c.NotebookApp.allow_root = True """
 
 downgrad_pip = 'wget https://pypi.python.org/packages/e7/a8/7556133689add8d1a54c0b14aeff0acb03c64707ce100ecd53934da1aa13/pip-8.1.2.tar.gz --no-check-certificate;\
  tar -xzvf pip-8.1.2.tar.gz; cd pip-8.1.2;  python setup.py install; cd ..; rm -rf pip-8.1.2 pip-8.1.2.tar.gz'

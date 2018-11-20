@@ -5,6 +5,9 @@ author:
 1. ay27 <jinmian.y@gmail.com>
 2. chendi <chendi1995425@gmail.com>
 
+## 版本：7
+1. 修复了jupyter启动时需要--allow-root的错误
+
 ## 版本：6
 
 1. 更换pip 源,现在使用pip 安装软件速度更快了
